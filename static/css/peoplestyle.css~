@@ -1,0 +1,21 @@
+.emptyName {
+	position: inherit;
+	margin-left: 300px;
+
+}
+.text-letf-emptyMe {
+	margin-left: 450px;
+}
+.line-left{
+	position: inherit;
+	margin-left: -220px;
+}
+.line-left-contact{
+	position: inherit;
+	margin-left: 0px;
+	max-width: 300px;
+}
+.emptyMe-img{
+	position: absolute;
+	margin-left: -350px;
+}
