@@ -68,7 +68,7 @@ $(document).on('click', '.send-checkbox', function(){
     F_procent_graphic = [];
     for (var i = 1; i < point_x_array.length; i++) {
         //SumSeries(i);
-        F_procent_graphic.push([point_x_array[i], SumSeries(i,point_x_array,percent_graphic_data)]);
+        F_procent_graphic.push([point_x_array[i], SumSeries(i,point_x_array.length,point_x_array,percent_graphic_data)]);
         //console.log(point_x_array[i])
     };
     console.log(F_procent_graphic,point_x_array)
@@ -132,12 +132,13 @@ $(document).on('click', '.send-checkbox', function(){
     });
 
 });
-function SumSeries(n_point,point_x_array,percent_graphic_data){
+function SumSeries(n_point,N,point_x_array,percent_graphic_data){
     var sum = 0;
-    for (var i = 1; i <= n_point; i++) {
+    for (var i = n_point; i < N; i++) {
         //sum += point_x_array[i]*(percent_graphic_data[i-1][1]-percent_graphic_data[i][1])
         //console.log(i,point_x_array[i],percent_graphic_data[i-1][1],percent_graphic_data[i][1])
-        sum += percent_graphic_data[i][1]*(point_x_array[i]-point_x_array[i-1])
+        sum += percent_graphic_data[i][1]*(point_x_array[i]-point_x_array[i-1]);
+        console.log(sum)
     };
     return sum;
 }
