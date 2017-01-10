@@ -37,23 +37,19 @@ $(document).on('click', '.send-checkbox', function(){
     var graphic_data = [];
     console.log(checkbox)
     for (var i = 0; i < checkbox.length; i++) {
-        //checkbox[i].value
-        //console.log(checkbox[i].checked);
-        graphic_data.push([]);
+       
         if(checkbox[i].checked==true){
             bool_check_obj[checkbox[i].value] = 1;
-            graphic_data[i].push(+checkbox[i].value);
-            graphic_data[i].push(1);
-
-        }else{
+            graphic_data.push(+checkbox[i].value);
+        } else{
             bool_check_obj[checkbox[i].value] = 0;
-            graphic_data[i].push(+checkbox[i].value);
-            graphic_data[i].push(0);
+            graphic_data.push(+checkbox[i].value);
         }
     };
     //console.log(bool_check_obj,graphic_data)
 
     var percent_graphic_data = [[0,1]];
+    var point_x_array = [];
     var size_of_sample = 0;
     var sum = 0;
     for(i in bool_check_obj){
@@ -63,32 +59,39 @@ $(document).on('click', '.send-checkbox', function(){
         if(size_of_sample==10){
             
             percent_graphic_data.push([+i,sum/10]);
+            point_x_array.push(+i);
             size_of_sample=0;
             sum=0;
 
         }        
     }
-    console.log(percent_graphic_data)
+    F_procent_graphic = [];
+    for (var i = 1; i < point_x_array.length; i++) {
+        //SumSeries(i);
+        F_procent_graphic.push([point_x_array[i], SumSeries(i,point_x_array,percent_graphic_data)]);
+        //console.log(point_x_array[i])
+    };
+    console.log(F_procent_graphic,point_x_array)
     
     Highcharts.chart('graphic', {
         chart: {
             type: 'spline'
         },
         title: {
-            text: 'Snow depth at Vikjafjellet, Norway'
+            text: ''
         },
         subtitle: {
-            text: 'Irregular time data in Highcharts JS'
+            text: ''
         },
         xAxis: {
             
             title: {
-                text: 'Date'
+                text: 'word'
             }
         },
         yAxis: {
             title: {
-                text: 'Snow depth (m)'
+                text: '%'
             },
             min: 0
         },
@@ -99,5 +102,41 @@ $(document).on('click', '.send-checkbox', function(){
             data: percent_graphic_data
         }]
     });
+    Highcharts.chart('graphic_F', {
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            
+            title: {
+                text: 'word'
+            }
+        },
+        yAxis: {
+            title: {
+                text: '%'
+            }
+        },
+        
+
+        series: [{
+            name: 'word',
+            data: F_procent_graphic
+        }]
+    });
 
 });
+function SumSeries(n_point,point_x_array,percent_graphic_data){
+    var sum = 0;
+    for (var i = 1; i <= n_point; i++) {
+        sum += point_x_array[i]*(percent_graphic_data[i][1]-percent_graphic_data[i-1][1])
+        console.log(i,point_x_array[i],percent_graphic_data[i][1],percent_graphic_data[i-1][1])
+    };
+    return sum;
+}
