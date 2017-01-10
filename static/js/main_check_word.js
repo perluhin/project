@@ -135,8 +135,9 @@ $(document).on('click', '.send-checkbox', function(){
 function SumSeries(n_point,point_x_array,percent_graphic_data){
     var sum = 0;
     for (var i = 1; i <= n_point; i++) {
-        sum += point_x_array[i]*(percent_graphic_data[i][1]-percent_graphic_data[i-1][1])
-        console.log(i,point_x_array[i],percent_graphic_data[i][1],percent_graphic_data[i-1][1])
+        //sum += point_x_array[i]*(percent_graphic_data[i-1][1]-percent_graphic_data[i][1])
+        //console.log(i,point_x_array[i],percent_graphic_data[i-1][1],percent_graphic_data[i][1])
+        sum += percent_graphic_data[i][1]*(point_x_array[i]-point_x_array[i-1])
     };
     return sum;
 }
